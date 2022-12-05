@@ -21,6 +21,6 @@
 #### Selection:
 * [ ] Users should be able to see their selection status ("incomplete" if we don't have all needed data, "awaiting selection" if all needed data is provided, or "receiving UBI" if/when they've been selected and funded.
 ### Need to be researched:
-* [ ] Need a way of verifying individuality (only one valid account per person)
+* [ ] Need a way of verifying individuality and identity (only one valid account per person)
 * [ ] Need a way of verifying income/wealth of the user (for the first few batches, it may be sensible to prioritize low-income people to maximize positive impact)
 * [ ] Need a way of connecting to a bank account for the UBI payments to be sent to
