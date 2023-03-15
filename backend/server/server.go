@@ -46,7 +46,6 @@ func Init() {
 	port := ":" + config.GetString("server.apiPort")
 	err := router.Run(port)
 	if err != nil {
-		fmt.Println(port)
 		panic(err.Error())
 	}
 }

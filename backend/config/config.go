@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/viper"
@@ -31,7 +30,8 @@ func Init() {
 	if err != nil {
 		log.Fatal("error on parsing configuration file")
 	}
-	fmt.Println("here")
+	apiBasePath := "/auth"
+	websiteBasePath := "/auth"
 
 	// smtpUsername := "..."
 	// smtpSettings := emaildelivery.SMTPSettings{
@@ -52,9 +52,11 @@ func Init() {
 			APIKey:        config.GetString("supertokens.apiKey"),
 		},
 		AppInfo: supertokens.AppInfo{
-			AppName:       "SuperTokens Demo App",
-			APIDomain:     "http://localhost:" + config.GetString("server.apiPort"),
-			WebsiteDomain: "http://localhost:" + config.GetString("server.websitePort"),
+			AppName:         "Recipient",
+			APIDomain:       "http://localhost:" + config.GetString("server.apiPort"),
+			WebsiteDomain:   "http://localhost:" + config.GetString("server.websitePort"),
+			APIBasePath:     &apiBasePath,
+			WebsiteBasePath: &websiteBasePath,
 		},
 		RecipeList: []supertokens.Recipe{
 			emailpassword.Init(&epmodels.TypeInput{

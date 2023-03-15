@@ -48,11 +48,7 @@ function App() {
         <Routes>
           {/*This renders the login UI on the /auth route*/}
           {getSuperTokensRoutesForReactRouterDom(reactRouterDom)}
-          {/*Your app routes*/}
           <Route exact path="/" element={<h1>Home Page</h1>} />
-          {/* <Route exact path="page1" element={<Page1 />} /> */}
-          {/* <Route exact path="page2" element={<Page2 />} /> */}
-          {/* <Route exact path="page3" element={<Page3 />} /> */}
         </Routes>
       </BrowserRouter>
     </SuperTokensWrapper>
