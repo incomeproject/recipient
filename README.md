@@ -16,7 +16,9 @@ Please review our [code of conduct](CODE_OF_CONDUCT.md) prior to engaging. You c
 
 #### Setup
 
-- From the backend folder: `go mod download`
+- From the backend folder:
+  - `go mod download`
+  - copy config/dev.yaml.example to dev.yaml and add in your api keys
 - From the frontend folder: `npm install`
 
 #### Running

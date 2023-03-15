@@ -7,6 +7,7 @@ import SuperTokens, {
   getSuperTokensRoutesForReactRouterDom,
 } from "supertokens-auth-react";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
+import EmailVerification from "supertokens-auth-react/recipe/emailverification";
 import Session from "supertokens-auth-react/recipe/session";
 
 SuperTokens.init({
@@ -36,6 +37,9 @@ SuperTokens.init({
           display: none;
         }
       `,
+    }),
+    EmailVerification.init({
+      mode: "REQUIRED",
     }),
     Session.init(),
   ],

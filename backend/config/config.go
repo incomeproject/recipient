@@ -17,8 +17,6 @@ import (
 
 var config *viper.Viper
 
-// Init is an exported method that takes the environment starts the viper
-// (external lib) and returns the configuration struct.
 func Init() {
 	var err error
 	config = viper.New()

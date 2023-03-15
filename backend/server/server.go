@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
 	"recipient/config"
 	"time"
@@ -17,8 +16,6 @@ func Init() {
 	config := config.GetConfig()
 
 	router := gin.New()
-	fmt.Println((gin.Mode()))
-
 	router.Use(gin.Recovery())
 
 	// CORS
@@ -39,10 +36,8 @@ func Init() {
 		c.Abort()
 	})
 
-	// Adding an API that requires session verification
 	router.GET("/sessioninfo", verifySession(nil), sessioninfo)
 
-	// starting the server
 	port := ":" + config.GetString("server.apiPort")
 	err := router.Run(port)
 	if err != nil {
@@ -50,8 +45,6 @@ func Init() {
 	}
 }
 
-// This is a function that wraps the supertokens verification function
-// to work the gin
 func verifySession(options *sessmodels.VerifySessionOptions) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session.VerifySession(options, func(rw http.ResponseWriter, r *http.Request) {
