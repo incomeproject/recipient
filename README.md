@@ -9,19 +9,17 @@ Please review our [code of conduct](CODE_OF_CONDUCT.md) prior to engaging. You c
 ### Requirements
 
 - [nodejs](https://nodejs.org)
-- [golang 1.20](https://go.dev/doc/install)
+- [docker](https://docs.docker.com/get-docker/)
 - A dev account with [supertokens](https://supertokens.com/) (it's free)
 
 ### Local Development
 
-#### Setup
-
-- From the backend folder:
-  - `go mod download`
-  - copy config/dev.yaml.example to dev.yaml and add in your api keys
-- From the frontend folder: `npm install`
-
-#### Running
-
-- From the backend folder: `go run main.go`
-- From the frontend folder: `npm start`
+- To run the backend:
+  - `cp .secrets.env.example .secrets.env`
+  - Update .secrets.env with the appropriate values
+  - `docker compose build`
+  - `docker compose up`
+  - Changes made will trigger a re-compile
+- To run the frontend:
+  - `cd frontend && npm install`
+  - `npm start`

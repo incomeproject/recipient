@@ -1,0 +1,16 @@
+# Start from golang base image
+FROM golang:alpine
+
+# Git is required for fetching the dependencies.
+RUN apk update && apk add --no-cache git
+
+WORKDIR /backend
+COPY backend .
+
+# Download all dependencies. Dependencies will be cached if the go.mod and the go.sum files are not changed 
+RUN go mod download
+
+#Setup hot-reload for dev stage
+RUN go install -mod=mod github.com/githubnemo/CompileDaemon
+
+ENTRYPOINT CompileDaemon -build="go build -o main ." -command="./main"

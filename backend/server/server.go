@@ -37,7 +37,7 @@ func Init() {
 	// Add Routes - supertokens adds routes at apiBasePath/login and apiBasePath/signup
 	router.GET("/sessioninfo", verifySession(nil), sessioninfo)
 
-	err := router.Run(":" + config.GetString("server.apiPort"))
+	err := router.Run(config["apiPort"])
 	if err != nil {
 		panic(err.Error())
 	}

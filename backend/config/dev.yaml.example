@@ -1,6 +1,0 @@
-server:
-  apiPort: "8080"
-  websitePort: "3000"
-supertokens:
-  connectionURI: "<Connection URI>"
-  apiKey: "<API Key>"
