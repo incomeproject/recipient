@@ -31,19 +31,6 @@ func Init() {
 	apiBasePath := "/auth"
 	websiteBasePath := "/auth"
 
-	// smtpUsername := "..."
-	// smtpSettings := emaildelivery.SMTPSettings{
-	// 	Host: "...",
-	// 	From: emaildelivery.SMTPFrom{
-	// 		Name:  "...",
-	// 		Email: "...",
-	// 	},
-	// 	Port:     456,
-	// 	Username: &smtpUsername, // this is optional. In case not given, from.email will be used
-	// 	Password: "...",
-	// 	Secure:   false,
-	// }
-
 	err = supertokens.Init(supertokens.TypeInput{
 		Supertokens: &supertokens.ConnectionInfo{
 			ConnectionURI: config.GetString("supertokens.connectionURI"),
@@ -57,21 +44,10 @@ func Init() {
 			WebsiteBasePath: &websiteBasePath,
 		},
 		RecipeList: []supertokens.Recipe{
-			emailpassword.Init(&epmodels.TypeInput{
-				// EmailDelivery: &emaildelivery.TypeInput{
-				// 	Service: emailpassword.MakeSMTPService(emaildelivery.SMTPServiceConfig{
-				// 		Settings: smtpSettings,
-				// 	}),
-				// },
-			}),
+			emailpassword.Init(&epmodels.TypeInput{}),
 
 			emailverification.Init(evmodels.TypeInput{
 				Mode: evmodels.ModeRequired,
-				// EmailDelivery: &emaildelivery.TypeInput{
-				// 	Service: emailverification.MakeSMTPService(emaildelivery.SMTPServiceConfig{
-				// 		Settings: smtpSettings,
-				// 	}),
-				// },
 			}),
 
 			dashboard.Init(&dashboardmodels.TypeInput{

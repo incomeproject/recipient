@@ -27,19 +27,17 @@ func Init() {
 		AllowCredentials: true,
 	}))
 
-	// Adding the SuperTokens middleware
 	router.Use(func(c *gin.Context) {
 		supertokens.Middleware(http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 			c.Next()
 		})).ServeHTTP(c.Writer, c.Request)
-		// we call Abort so that the next handler in the chain is not called, unless we call Next explicitly
 		c.Abort()
 	})
 
+	// Add Routes - supertokens adds routes at apiBasePath/login and apiBasePath/signup
 	router.GET("/sessioninfo", verifySession(nil), sessioninfo)
 
-	port := ":" + config.GetString("server.apiPort")
-	err := router.Run(port)
+	err := router.Run(":" + config.GetString("server.apiPort"))
 	if err != nil {
 		panic(err.Error())
 	}
@@ -51,7 +49,6 @@ func verifySession(options *sessmodels.VerifySessionOptions) gin.HandlerFunc {
 			c.Request = c.Request.WithContext(r.Context())
 			c.Next()
 		})(c.Writer, c.Request)
-		// we call Abort so that the next handler in the chain is not called, unless we call Next explicitly
 		c.Abort()
 	}
 }
