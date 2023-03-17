@@ -2,12 +2,12 @@ package main
 
 import (
 	"recipient/config"
+	"recipient/models"
 	"recipient/server"
 )
 
 func main() {
-	// supertokens init here
 	config.Init()
-	// adding of superotkens middleware, cors and APIs
+	models.ConnectDB()
 	server.Init()
 }

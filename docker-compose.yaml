@@ -13,13 +13,13 @@ services:
     volumes:
       - ./backend:/backend
     depends_on:
-      - postgresdb
+      - postgres_dev
     networks:
       - income_project
 
-  postgresdb:
+  postgres_dev:
     image: postgres:latest
-    container_name: postgres_container
+    container_name: postgres_dev_container
     environment:
       - POSTGRES_USER=${DEV_DB_USER}
       - POSTGRES_PASSWORD=${DEV_DB_PASSWORD}
@@ -28,11 +28,11 @@ services:
     ports:
       - '1234:5432'
     volumes:
-      - ./pg_data:/var/lib/postgresql/data
+      - ./pg_data_dev:/var/lib/postgresql/data
     networks:
       - income_project
 
-  postgresdb_test:
+  postgres_test:
     image: postgres:latest
     container_name: postgres_test_container
     environment:
@@ -48,7 +48,7 @@ services:
       - income_project
 
 volumes:
-  pg_data:
+  pg_data_dev:
   pg_data_test:
 
 # Networks to be created to facilitate communication between containers
