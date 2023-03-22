@@ -54,6 +54,6 @@ jobs:
         with:
           node-version: 18.x
         working-directory: frontend
-        run: npm install
       - name: Frontend Tests
+        run: npm install
         run: npm test
