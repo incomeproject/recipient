@@ -53,7 +53,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-        working-directory: frontend
       - name: Frontend Tests
+        working-directory: frontend
         run: npm install
         run: npm test
