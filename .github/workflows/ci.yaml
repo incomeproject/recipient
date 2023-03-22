@@ -19,7 +19,7 @@ jobs:
           node-version: 18.x
       - name: Prettier
         working-directory: frontend
-        run: npx prettier --check
+        run: npx prettier --check .
       - name: Setup Go
         uses: actions/setup-go@v3
         with:
