@@ -27,6 +27,6 @@ Please review our [code of conduct](CODE_OF_CONDUCT.md) prior to engaging. You c
 ### Testing
 
 - Backend:
-  - From the repo root directory - `docker-compose -f docker-compose.test.yml up --abort-on-container-exit`
+  - From the repo root directory - `docker-compose -f docker-compose.test.yaml up --abort-on-container-exit`
 - Frontend:
   - From the frontend folder - `npm test`
