@@ -21,7 +21,7 @@ func TestSetupConfig(t *testing.T) {
 	assert.Equal(t, Config[configKey], newValue)
 
 	// Verify Config logs error if a value is left blank
-	oldOut := log.StandardLogger().Out // Save current log target
+	oldOut := log.StandardLogger().Out
 	buf := bytes.Buffer{}
 	log.SetOutput(&buf)
 	os.Setenv(envKey, "")
