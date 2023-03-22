@@ -23,3 +23,10 @@ Please review our [code of conduct](CODE_OF_CONDUCT.md) prior to engaging. You c
 - To run the frontend:
   - `cd frontend && npm install`
   - `npm start`
+
+### Testing
+
+- Backend:
+  - From the repo root directory - `docker-compose -f docker-compose.test.yml up --abort-on-container-exit`
+- Frontend:
+  - From the frontend folder - `npm test`

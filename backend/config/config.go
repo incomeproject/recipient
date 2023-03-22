@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 var Config map[string]string
@@ -30,9 +31,16 @@ func setupConfig() {
 
 	Config["apiPort"] = os.Getenv("API_PORT")
 	Config["websitePort"] = os.Getenv("WEBSITE_PORT")
+
 	Config["supertokensURI"] = os.Getenv("SUPERTOKENS_URI")
 	Config["supertokensAPIKey"] = os.Getenv("SUPERTOKENS_API_KEY")
 	Config["supertokensDashboardKey"] = os.Getenv("SUPERTOKENS_DASHBOARD_KEY")
+
+	for key, value := range Config {
+		if value == "" {
+			log.Errorf("Failed to get value for %s. Check your \".env\" and \".secrets.env\" files.", key)
+		}
+	}
 }
 
 func Init() {
