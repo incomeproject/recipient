@@ -14,7 +14,7 @@ import (
 // }
 
 func GetRecipient(c *gin.Context) {
-	var recipient models.Recipient
+			var recipient models.Recipient
 
 	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
 	if sessionContainer == nil {
