@@ -1,0 +1,70 @@
+name: Continuous Integration
+
+on:
+  - pull_request
+  - workflow_dispatch
+
+jobs:
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Prettier
+        working-directory: frontend
+        run: npx prettier --check .
+  gofmt:
+    name: Gofmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.20
+      - name: Gofmt
+        working-directory: backend
+        run: if [ "$(gofmt -s -l . | wc -l)" -gt 0 ]; then exit 1; fi
+  backend:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: Backend Tests
+        env:
+          SUPERTOKENS_URI: ${{ secrets.TEST_SUPERTOKENS_URI }}
+          SUPERTOKENS_API_KEY: ${{ secrets.TEST_SUPERTOKENS_API_KEY }}
+          SUPERTOKENS_DASHBOARD_KEY: ${{ secrets.TEST_SUPERTOKENS_DASHBOARD_KEY }}
+        run: touch .secrets.env && docker-compose -f docker-compose.test.yaml up --build --abort-on-container-exit
+  frontend:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Frontend Tests
+        working-directory: frontend
+        run: npm install && npm test

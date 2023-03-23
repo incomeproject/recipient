@@ -5,6 +5,7 @@ services:
       - .env
       - .secrets.env
     build:
+      context: ./
       dockerfile: backend/Dockerfile.test
     ports:
       - 8080:8080
@@ -33,7 +34,6 @@ services:
 volumes:
   pg_data_test:
 
-# Networks to be created to facilitate communication between containers
 networks:
   income_project_test:
     driver: bridge

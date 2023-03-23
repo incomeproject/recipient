@@ -3,6 +3,6 @@ import App from "./App";
 
 test("renders placeholder text", () => {
   render(<App />);
-  const placeholder = screen.getByText(/One day there/i);
+  const placeholder = screen.getByText(/Welcome/i);
   expect(placeholder).toBeInTheDocument();
 });

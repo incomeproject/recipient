@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,12 +18,12 @@ func TestSetupConfig(t *testing.T) {
 	os.Setenv(envKey, newValue)
 
 	setupConfig()
-	assert.Equal(t, Config[configKey], newValue)
+	assert.Equal(t, newValue, Config[configKey])
 
 	// Verify Config logs error if a value is left blank
-	oldOut := log.StandardLogger().Out
+	oldOut := logrus.StandardLogger().Out
 	buf := bytes.Buffer{}
-	log.SetOutput(&buf)
+	logrus.SetOutput(&buf)
 	os.Setenv(envKey, "")
 
 	setupConfig()
@@ -31,6 +31,6 @@ func TestSetupConfig(t *testing.T) {
 	assert.Contains(t, buf.String(), configKey)
 
 	// Cleanup
-	log.SetOutput(oldOut) // Restore log target
+	logrus.SetOutput(oldOut)
 	os.Setenv(envKey, oldValue)
 }
