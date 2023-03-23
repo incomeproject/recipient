@@ -40,7 +40,7 @@ jobs:
           SUPERTOKENS_URI: ${{ secrets.TEST_SUPERTOKENS_URI }}
           SUPERTOKENS_API_KEY: ${{ secrets.TEST_SUPERTOKENS_API_KEY }}
           SUPERTOKENS_DASHBOARD_KEY: ${{ secrets.TEST_SUPERTOKENS_DASHBOARD_KEY }}
-        run: docker-compose -f docker-compose.test.yaml up --build --abort-on-container-exit
+        run: touch .secrets.env && docker-compose -f docker-compose.test.yaml up --build --abort-on-container-exit
   frontend:
     runs-on: ubuntu-latest
     steps:
