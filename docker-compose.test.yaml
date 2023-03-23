@@ -5,6 +5,7 @@ services:
       - .env
       - .secrets.env
     build:
+      context: backend
       dockerfile: backend/Dockerfile.test
     ports:
       - 8080:8080
