@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 
-dotenv.config();
-dotenv.config({ path: ".secrets.env" });
+dotenv.config({ path: "../.env" });
+dotenv.config({ path: "../.secrets.env" });
 
 export const backendPort = process.env.BACKEND_PORT;
 export const frontendPort = process.env.FRONTEND_PORT;

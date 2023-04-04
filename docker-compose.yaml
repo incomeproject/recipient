@@ -11,8 +11,6 @@ services:
       - '1234:5432'
     volumes:
       - ./pg_data_dev:/var/lib/postgresql/data
-    networks:
-      - income_project
 
   postgres_test:
     image: postgres:latest
@@ -26,14 +24,8 @@ services:
       - '4568:5433'
     volumes:
       - ./pg_data_test:/var/lib/postgresql/data
-    networks:
-      - income_project_test
 
 volumes:
   pg_data_dev:
   pg_data_test:
 
-# Networks to be created to facilitate communication between containers
-networks:
-  income_project:
-    driver: bridge
