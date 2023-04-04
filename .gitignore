@@ -1,4 +1,7 @@
 .secrets.env
+
 pg_data_dev
 pg_data_test
-backend/main
+
+backend/build
+backend/node_modules
