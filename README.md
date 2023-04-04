@@ -17,9 +17,9 @@ Please review our [code of conduct](CODE_OF_CONDUCT.md) prior to engaging. You c
 - To run the backend:
   - `cp .secrets.env.example .secrets.env`
   - Update .secrets.env with the appropriate values
-  - `docker compose build`
-  - `docker compose up`
-  - Changes made will trigger a re-compile
+  - `docker compose up --build`
+  - `cd backend && npm install`
+  - `npm start`
 - To run the frontend:
   - `cd frontend && npm install`
   - `npm start`
@@ -27,6 +27,7 @@ Please review our [code of conduct](CODE_OF_CONDUCT.md) prior to engaging. You c
 ### Testing
 
 - Backend:
-  - From the repo root directory - `docker-compose -f docker-compose.test.yaml up --abort-on-container-exit`
+  - From the repo root directory - `docker compose up --build`
+  - From the backend folder - `npm test`
 - Frontend:
   - From the frontend folder - `npm test`

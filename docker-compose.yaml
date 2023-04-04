@@ -1,22 +1,4 @@
 services:
-  backend:
-    container_name: income_project_backend
-    env_file:
-      - .env
-      - .secrets.env
-    tty: true
-    build:
-      dockerfile: backend/Dockerfile
-    ports:
-      - 8080:8080
-    restart: on-failure
-    volumes:
-      - ./backend:/backend
-    depends_on:
-      - postgres_dev
-    networks:
-      - income_project
-
   postgres_dev:
     image: postgres:latest
     container_name: postgres_dev_container
@@ -29,14 +11,21 @@ services:
       - '1234:5432'
     volumes:
       - ./pg_data_dev:/var/lib/postgresql/data
-    networks:
-      - income_project
+
+  postgres_test:
+    image: postgres:latest
+    container_name: postgres_test_container
+    environment:
+      - POSTGRES_USER=${TEST_DB_USER}
+      - POSTGRES_PASSWORD=${TEST_DB_PASSWORD}
+      - POSTGRES_DB=${TEST_DB_NAME}
+      - DATABASE_HOST=${TEST_DB_HOST}
+    ports:
+      - '4568:5433'
+    volumes:
+      - ./pg_data_test:/var/lib/postgresql/data
 
 volumes:
   pg_data_dev:
   pg_data_test:
 
-# Networks to be created to facilitate communication between containers
-networks:
-  income_project:
-    driver: bridge

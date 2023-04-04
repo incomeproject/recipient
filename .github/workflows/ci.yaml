@@ -18,25 +18,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Prettier
+      - name: Frontend Linting
         working-directory: frontend
         run: npx prettier --check .
-  gofmt:
-    name: Gofmt
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
-      - name: Setup Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.20
-      - name: Gofmt
+      - name: Backend Linting
         working-directory: backend
-        run: if [ "$(gofmt -s -l . | wc -l)" -gt 0 ]; then exit 1; fi
+        run: npx prettier --check .
   backend:
     name: Backend Tests
     runs-on: ubuntu-latest
@@ -46,12 +33,13 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
       - name: Backend Tests
-        env:
-          SUPERTOKENS_URI: ${{ secrets.TEST_SUPERTOKENS_URI }}
-          SUPERTOKENS_API_KEY: ${{ secrets.TEST_SUPERTOKENS_API_KEY }}
-          SUPERTOKENS_DASHBOARD_KEY: ${{ secrets.TEST_SUPERTOKENS_DASHBOARD_KEY }}
-        run: touch .secrets.env && docker-compose -f docker-compose.test.yaml up --build --abort-on-container-exit
+        working-directory: backend
+        run: npm install && npm test
   frontend:
     name: Frontend Tests
     runs-on: ubuntu-latest
