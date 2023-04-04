@@ -1,9 +1,9 @@
 import "./App.css";
 
 // React & Router
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as reactRouterDom from "react-router-dom";
+import Cookies from "js-cookie";
 
 // SuperTokens
 import SuperTokens, {
@@ -24,7 +24,7 @@ import {
 } from "./common/constants";
 
 // Pages
-import Home from "./pages/Home.js";
+import Home from "./pages/Home";
 
 SuperTokens.init({
   appInfo: {
@@ -61,6 +61,7 @@ SuperTokens.init({
 });
 
 const App = () => {
+  Cookies.get("username");
   return (
     <SuperTokensWrapper>
       <BrowserRouter>
