@@ -12,7 +12,7 @@ const app: Express = express();
 app.use(
   cors({
     origin: `http://localhost:${frontendPort}`,
-    allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
+    allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
     credentials: true,
   })
 );
