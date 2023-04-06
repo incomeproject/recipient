@@ -37,9 +37,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Backend Tests
+      - name: Setup Postgres
+        run: docker compose up -d
+      - name: Npm Install
         working-directory: backend
-        run: npm install && npm test
+        run: npm install
+      - name: Test
+        env:
+          SUPERTOKENS_URI: ${{ secrets.TEST_SUPERTOKENS_URI }}
+          SUPERTOKENS_API_KEY: ${{ secrets.TEST_SUPERTOKENS_API_KEY }}
+        working-directory: backend
+        run: npm test
   frontend:
     name: Frontend Tests
     runs-on: ubuntu-latest

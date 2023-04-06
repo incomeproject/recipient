@@ -21,7 +21,7 @@ services:
       - POSTGRES_DB=${TEST_DB_NAME}
       - DATABASE_HOST=${TEST_DB_HOST}
     ports:
-      - '4568:5433'
+      - '4567:5432'
     volumes:
       - ./pg_data_test:/var/lib/postgresql/data
 
