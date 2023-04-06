@@ -32,8 +32,8 @@
     "build": "npx tsc",
     "prod": "NODE_ENV=prod node build/server.js",
     "seed": "ts-node __utils__/seed.ts",
-    "start": "concurrently \"npx tsc --watch\" \"nodemon -q build/server.js\"",
-    "test": "NODE_ENV=test jest",
+    "start": "concurrently \"npx tsc --watch\" \"nodemon -q build/src/server.js\"",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
     "typeorm": "typeorm-ts-node-commonjs"
   }
 }

@@ -20,9 +20,13 @@ userRouter.get(
     const auth_id = req.session!.getUserId();
     const user = await userRepo.findOneBy({
       id: id,
-      auth_id: auth_id,
     });
-    res.status(200).json(user);
+
+    if (user && user.auth_id == auth_id) {
+      res.status(200).json(user);
+    } else {
+      res.status(401).json({ message: "unauthorized" });
+    }
   }
 );
 
@@ -31,7 +35,11 @@ userRouter.post("/", async (req: Request, res: Response) => {
 
   const user = new User();
   user.email = email;
-  await userRepo.save(user);
-
-  res.status(200).json(user);
+  await userRepo.clear();
+  try {
+    await userRepo.save(user);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ message: "Invalid request body" });
+  }
 });
