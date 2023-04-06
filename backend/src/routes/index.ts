@@ -7,8 +7,13 @@ export const indexRouter = express.Router();
 indexRouter.get(
   "/",
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-      waitlistOpen: await waitlistOpen(),
-    });
+    try {
+      const waitlistStatus = await waitlistOpen();
+      res.status(200).json({
+        waitlistOpen: waitlistStatus,
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Unknown error" });
+    }
   }
 );

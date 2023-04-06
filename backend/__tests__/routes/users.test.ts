@@ -1,4 +1,5 @@
 import request from "supertest";
+import crypto from "crypto";
 
 import app from "../../src/app";
 import { AppDataSource } from "../../src/data-source";
@@ -23,14 +24,16 @@ afterAll(async () => {
 
 describe('get("/user/:id")', () => {
   it("requires authentication", async () => {
-    const res = await request(app).get("/user/1");
+    const res = await request(app).get(`/user/${crypto.randomUUID()}`);
     expect(res.status).toBe(401);
   });
 
   it("fails if the session's userID doesn't match the requested user's auth_id", async () => {
     await createAuthedUser();
     const authHeaders = await getAuthHeaders();
-    const res = await request(app).get("/user/2").set(authHeaders);
+    const res = await request(app)
+      .get(`/user/${crypto.randomUUID()}`)
+      .set(authHeaders);
     expect(res.status).toBe(401);
   });
 
@@ -61,6 +64,12 @@ describe('post("/user")', () => {
       .post("/user")
       .send({ phone: "info@incomeproject.org" });
     expect(res.status).toBe(400);
+  });
+
+  it("fails when given an email address that already exists", async () => {
+    const user = await createAuthedUser();
+    const res = await request(app).post("/user").send({ email: user.email });
+    expect(res.status).toBe(409);
   });
 
   it("creates and returns a user", async () => {

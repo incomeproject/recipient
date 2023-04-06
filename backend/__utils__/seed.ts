@@ -5,7 +5,6 @@ const seedUsers = async (): Promise<void> => {
   const userRepo = AppDataSource.getRepository(User);
   [
     {
-      id: 1,
       auth_id: "15aae548-9b20-48b1-a22a-799a0c42c35a",
       email: "info@incomeproject.org",
     },
