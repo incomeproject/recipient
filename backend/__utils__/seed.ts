@@ -1,12 +1,8 @@
-import { Repository } from "typeorm";
-
 import { AppDataSource } from "../src/data-source";
 import { User } from "../src/models/User";
 
-const seed = async (userRepo: Repository<User>) => {
-  const oldUsers = await userRepo.find();
-  userRepo.remove(oldUsers);
-
+const seedUsers = async (): Promise<void> => {
+  const userRepo = AppDataSource.getRepository(User);
   [
     {
       id: 1,
@@ -19,10 +15,9 @@ const seed = async (userRepo: Repository<User>) => {
   });
 };
 
-const userRepo = AppDataSource.getRepository(User);
-
 AppDataSource.initialize()
   .then(async () => {
-    seed(userRepo);
+    await AppDataSource.dropDatabase();
+    await seedUsers();
   })
   .catch((error) => console.log(error));
